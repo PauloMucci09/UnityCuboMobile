@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 968229640850276393}
   - component: {fileID: 4004700648909777117}
   - component: {fileID: 5272283741893871845}
+  - component: {fileID: -687238742406538981}
   m_Layer: 0
   m_Name: Obstacle
   m_TagString: Obstacle
@@ -68,7 +69,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9303019bfebc7db4eb445c11410e53e0, type: 2}
+  - {fileID: 2100000, guid: 9a2284eba1bf4794c8abc7729b56bd23, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -140,3 +141,15 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &-687238742406538981
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1970677424121043056}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c65b61dc4baa584db0b2ac35b605f4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Obstacle
