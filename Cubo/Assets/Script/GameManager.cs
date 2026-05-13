@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
 
             var obstacleSpawn = Random.Range(1, 4);
 
-            for (int i = 0; i < obstacleSpawn; i ++)
+            for (int i = 0; i < obstacleSpawn; i++)
             {
 
 
