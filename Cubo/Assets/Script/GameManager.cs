@@ -1,17 +1,29 @@
 using System.Collections;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class GameManager : MonoBehaviour
 {
+    [Header ("Spawnar Objetos")]
     [SerializeField] private GameObject obstaclePrefab;
     public float spawnInterval = 2f;
     public bool isGameOver = false;
     public float spawnY = 11f;
     public float spawnX = 7f;
 
+    [Header("Controle Mapeamento")]
+
     [SerializeField] private InputActionReference cancelAction;
+
+    [Header("Menu Pause")]
+    public GameObject pauseMenu;
+
+    [Header("Pontuação")]
+    [SerializeField] private TextMeshProUGUI scoreText;
+    private int score = 0;
+    private float timeScore = 0f;
 
     private void OnEnable()
     {
@@ -32,10 +44,12 @@ public class GameManager : MonoBehaviour
         if(Time.timeScale == 0f)
         {
             StartCoroutine(ScaleTime(0f, 1f, 0.5f));
+            pauseMenu.SetActive(false);
         }
         else if(Time.timeScale == 1f)
         {
             StartCoroutine(ScaleTime(1f, 0f, 0.5f));
+            pauseMenu.SetActive(true);
         }
 
     }
@@ -46,7 +60,10 @@ public class GameManager : MonoBehaviour
         StartCoroutine(SpawnObstacle());
     }
 
-    
+    private void Update()
+    {
+        Pontuacao();
+    }
 
 
 
@@ -103,6 +120,28 @@ public class GameManager : MonoBehaviour
 
     }
 
+    private void Pontuacao()
+    {
+        timeScore += Time.deltaTime;
+        if (timeScore >= 1f)
+        {
+            score++;
+            scoreText.text = "Score:" + score;
+            timeScore = 0f;
+                
+        }
+
+
+
+
+    }
+
+    //Pode ser acessado de outros scripts 
+
+    public void Enable()
+    {
+        gameObject.SetActive(true);
+    }
 
 
 }
