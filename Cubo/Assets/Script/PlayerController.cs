@@ -4,18 +4,28 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    [Header("Player Movement")]
     private Rigidbody rb;
     [SerializeField] private float speed = 5f;
     [SerializeField] private float maxSpeed = 5f;
-    public ParticleSystem destructionParticle;
-    private CinemachineImpulseSource _impulseSource;
-
     private Vector2 movementInput;
+    
+    
+
+    
+
+    [Header("Player Destruction")]
+    public ParticleSystem destructionParticle;
+    private CinemachineImpulseSource impulseSource;
+
+    [Header("Cameras")]
+    public CinemachineCamera cam;
+    public CinemachineCamera camZoom;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
-        _impulseSource = GetComponent<CinemachineImpulseSource>();
+        impulseSource = GetComponent<CinemachineImpulseSource>();
     }
     private void OnMove(InputValue value)
     {
@@ -25,6 +35,12 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        //Se entrar aqui não deixa o player se mover 
+        
+        if (GameManager.Instance == null || GameManager.Instance.isGameOver)
+        {
+            return;
+        }
         Vector3 moveDirection = new Vector3(movementInput.x, 0, movementInput.y)* speed;
 
         if (rb.linearVelocity.magnitude < maxSpeed)
@@ -40,8 +56,13 @@ public class PlayerController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Obstacle"))
         {
+            cam.gameObject.SetActive(false);
+            camZoom.gameObject.SetActive(true);
+
+
+            GameManager.Instance.isGameOver = true;//Seta o game over para true 
             Instantiate(destructionParticle, transform.position, Quaternion.identity);
-            _impulseSource.GenerateImpulse();
+            impulseSource.GenerateImpulse();
             Destroy(gameObject);
         }
 
