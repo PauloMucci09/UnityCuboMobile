@@ -30,6 +30,9 @@ public class GameManager : MonoBehaviour
     private int score = 0;
     private float timeScore = 0f;
 
+    [Header("Game Over")]
+    [SerializeField] private GameObject gameOverScreen;
+
     private void OnEnable()
     {
         cancelAction.action.Enable();
@@ -68,7 +71,7 @@ public class GameManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
+            //DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -166,6 +169,27 @@ public class GameManager : MonoBehaviour
     public void Enable()
     {
         gameObject.SetActive(true);
+    }
+
+    public void GameOver()
+    {
+        isGameOver = true;
+        gameOverScreen.SetActive(true);
+    }
+       
+    public void RestartGame()
+    {
+        Time.timeScale = 1f;
+        UnityEngine.SceneManagement.SceneManager.LoadScene(0);
+    }
+    
+    public void QuitGame()
+    {
+        Application.Quit();
+
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#endif
     }
 
 

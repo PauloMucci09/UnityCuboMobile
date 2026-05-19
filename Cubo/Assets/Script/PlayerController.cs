@@ -22,6 +22,8 @@ public class PlayerController : MonoBehaviour
     public CinemachineCamera cam;
     public CinemachineCamera camZoom;
 
+    
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -60,7 +62,7 @@ public class PlayerController : MonoBehaviour
             camZoom.gameObject.SetActive(true);
 
 
-            GameManager.Instance.isGameOver = true;//Seta o game over para true 
+            GameManager.Instance.GameOver();//Método Game Over
             Instantiate(destructionParticle, transform.position, Quaternion.identity);
             impulseSource.GenerateImpulse();
             Destroy(gameObject);
