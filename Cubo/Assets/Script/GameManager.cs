@@ -27,6 +27,9 @@ public class GameManager : MonoBehaviour
 
     [Header("Pontuação")]
     [SerializeField] private TextMeshProUGUI scoreText;
+    [SerializeField] private TextMeshProUGUI highScoreText;
+
+    private int highScore;
     private int score = 0;
     private float timeScore = 0f;
 
@@ -83,6 +86,12 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+
+        highScore = PlayerPrefs.GetInt("HighScore", 0);
+
+        highScoreText.text = "HighScore: " + highScore;
+
+
         StartCoroutine(SpawnObstacle());
     }
 
@@ -156,7 +165,27 @@ public class GameManager : MonoBehaviour
             score++;
             scoreText.text = "Score:" + score;
             timeScore = 0f;
-                
+
+            if (score > highScore)
+            {
+                highScore = score;
+
+                highScoreText.text = "HighScore: " + highScore;
+
+                PlayerPrefs.SetInt("HighScore", highScore);
+
+                PlayerPrefs.Save();
+
+
+
+            }
+
+
+            timeScore = 0f;
+
+
+
+
         }
 
 
